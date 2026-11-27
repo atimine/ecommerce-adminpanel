@@ -1,0 +1,130 @@
+{{!--
+  res.render('products', {
+    pageTitle: 'Products',
+    pageDescription: 'View and manage all listed products easily.',
+    pageCss: 'products', pageJs: 'products',
+    total: 5786,
+    filterLabel: 'All Price',                 // optional breadcrumb text
+    q: '',                                    // current search text
+    categories: [{ slug: 't-shirts', name: 'T-Shirts', count: 120, checked: false }],
+    priceMin: 0, priceMax: 1100,              // optional, current custom range
+    products: [{ id: 1, name: '...', description: '...', price: '320.00', likes: 128, image: '/img/products/1.jpg' }]
+  })
+--}}
+<div class="products-layout">
+
+  {{!-- ============ Filters ============ --}}
+  <aside class="filters card" id="filters">
+    <form id="filterForm" action="/products" method="get">
+
+      <details class="fgroup">
+        <summary>Categories <svg class="icon"><use href="#i-chevron-down"/></svg></summary>
+        <div class="fgroup__body">
+          {{#each categories}}
+          <label class="check">
+            <input type="checkbox" name="category" value="{{slug}}" {{#if checked}}checked{{/if}}>
+            <span>{{name}}{{#if count}} ({{count}}){{/if}}</span>
+          </label>
+          {{/each}}
+        </div>
+      </details>
+
+      <details class="fgroup" open>
+        <summary>Product Price <svg class="icon"><use href="#i-chevron-down"/></svg></summary>
+        <div class="fgroup__body" id="priceChecks">
+          {{!-- counts are sample numbers --}}
+          <label class="check"><input type="checkbox" name="price" value="all" checked><span>All Price</span></label>
+          <label class="check"><input type="checkbox" name="price" value="0-200"><span>Below $200 (145)</span></label>
+          <label class="check"><input type="checkbox" name="price" value="200-500"><span>$200 - $500 (1,885)</span></label>
+          <label class="check"><input type="checkbox" name="price" value="500-800"><span>$500 - $800 (2,276)</span></label>
+          <label class="check"><input type="checkbox" name="price" value="800-1000"><span>$800 - $1000 (12,676)</span></label>
+          <label class="check"><input type="checkbox" name="price" value="1000-1100"><span>$1000 - $1100 (13,123)</span></label>
+        </div>
+      </details>
+
+      <div class="custom-range">
+        <p class="custom-range__title">Custom Price Range :</p>
+
+        <div class="range" id="range">
+          <output class="range__tip" id="rangeTip" for="rangeMax">$1100</output>
+          <div class="range__track"><div class="range__fill" id="rangeFill"></div></div>
+          <input type="range" id="rangeMin" min="0" max="1100" step="10" value="{{#if priceMin}}{{priceMin}}{{else}}0{{/if}}" aria-label="Minimum price">
+          <input type="range" id="rangeMax" min="0" max="1100" step="10" value="{{#if priceMax}}{{priceMax}}{{else}}1100{{/if}}" aria-label="Maximum price">
+        </div>
+
+        <div class="range-inputs">
+          <label class="money"><span>$</span><input class="input" type="number" inputmode="numeric" id="minPrice" name="min" min="0" max="1100" step="10" value="{{#if priceMin}}{{priceMin}}{{else}}0{{/if}}" aria-label="Minimum price"></label>
+          <i aria-hidden="true"></i>
+          <label class="money"><span>$</span><input class="input" type="number" inputmode="numeric" id="maxPrice" name="max" min="0" max="1100" step="10" value="{{#if priceMax}}{{priceMax}}{{else}}1100{{/if}}" aria-label="Maximum price"></label>
+        </div>
+      </div>
+
+      <button class="btn btn--primary btn--block" type="submit">Apply</button>
+    </form>
+  </aside>
+
+  {{!-- ============ Toolbar + grid ============ --}}
+  <div class="products-main">
+
+    <section class="toolbar card">
+      <div class="toolbar__info">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/categories">Categories</a>
+          <svg class="icon"><use href="#i-chevron-right"/></svg>
+          <b>{{#if filterLabel}}{{filterLabel}}{{else}}All Price{{/if}}</b>
+        </nav>
+        <p class="toolbar__count">Showing all <b>{{total}}</b> products</p>
+      </div>
+
+      <div class="toolbar__actions">
+        <label class="search search--line">
+          <svg class="icon"><use href="#i-search"/></svg>
+          <input type="search" name="q" form="filterForm" value="{{q}}" placeholder="Search..." aria-label="Search products">
+        </label>
+
+        <button class="btn btn--ghost toolbar__filter" id="filterToggle" type="button" aria-expanded="false" aria-controls="filters">
+          Filter <svg class="icon"><use href="#i-sliders"/></svg>
+        </button>
+
+        <a class="btn btn--primary" href="/products/create">
+          <svg class="icon"><use href="#i-plus"/></svg>Create Product
+        </a>
+      </div>
+    </section>
+
+    <section class="product-grid" aria-label="Products">
+      {{#each products}}
+      <article class="product">
+        <div class="product__media">
+          <img src="{{image}}" alt="{{name}}" loading="lazy" onerror="this.onerror=null;this.src='/img/placeholder.svg'">
+          <span class="product__likes"><svg class="icon"><use href="#i-heart"/></svg>{{likes}}</span>
+        </div>
+
+        <div class="product__body">
+          <h3 class="product__name">{{name}}</h3>
+          <p class="product__desc">{{description}}</p>
+        </div>
+
+        <div class="product__foot">
+          <strong class="product__price">${{price}}</strong>
+          <div class="product__actions">
+            <a class="round-btn" href="/products/{{id}}/edit" aria-label="Edit {{name}}"><svg class="icon"><use href="#i-edit"/></svg></a>
+            <button class="round-btn round-btn--danger" type="button" aria-label="Delete {{name}}"
+              data-confirm
+              data-confirm-title="Delete product?"
+              data-confirm-text="“{{name}}” will be removed permanently."
+              data-confirm-action="/products/{{id}}/delete"
+              data-confirm-button="Delete"><svg class="icon"><use href="#i-trash"/></svg></button>
+          </div>
+        </div>
+      </article>
+      {{else}}
+      <div class="empty">
+        <b>No products found</b>
+        <p>Try changing the filters or create a new product.</p>
+      </div>
+      {{/each}}
+    </section>
+
+  </div>
+</div>

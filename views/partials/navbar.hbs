@@ -9,8 +9,8 @@
 	</button>
 
 	<div class='navbar__title'>
-		<h1>{{pageTitle}}</h1>
-		<p>{{pageDescription}}</p>
+		<h1>Hi, Adham! Welcome back.</h1>
+		<p>Manage inventory, analyze data, and track orders with ease.</p>
 	</div>
 
 	<form
@@ -41,7 +41,6 @@
 				<span class='notif__dot' id='notifDot'></span>
 			</button>
 
-			{{!-- Sample data. Replace with {{#each notifications}} when the backend is ready. --}}
 			<div
 				class='notif__panel'
 				id='notifPanel'
@@ -59,31 +58,41 @@
 						<span class='notif__ico notif__ico--user'><svg class='icon'><use
 									href='#i-user-plus'
 								/></svg></span>
-						<div class='notif__text'><p><b>Aziza Karimova</b>
-								joined as a new client</p><time>2 min ago</time></div>
+						<div class='notif__text'>
+							<p><b>Aziza Karimova</b> joined as a new client</p>
+							<time>2 min ago</time>
+						</div>
 					</li>
 					<li class='notif__item is-unread'>
 						<span class='notif__ico notif__ico--order'><svg class='icon'><use
 									href='#i-bag'
 								/></svg></span>
-						<div class='notif__text'><p>New order
+						<div class='notif__text'>
+							<p>
+								New order
 								<b>#583488</b>
-								is waiting for confirmation</p><time>15 min ago</time></div>
+								is waiting for confirmation
+							</p>
+							<time>15 min ago</time>
+						</div>
 					</li>
 					<li class='notif__item is-unread'>
 						<span class='notif__ico notif__ico--msg'><svg class='icon'><use
 									href='#i-message'
 								/></svg></span>
-						<div class='notif__text'><p><b>Jasur T.</b>
-								sent you a message</p><time>1 hour ago</time></div>
+						<div class='notif__text'>
+							<p><b>Jasur T.</b> sent you a message</p>
+							<time>1 hour ago</time>
+						</div>
 					</li>
 					<li class='notif__item'>
 						<span class='notif__ico notif__ico--order'><svg class='icon'><use
 									href='#i-bag'
 								/></svg></span>
-						<div class='notif__text'><p>New order
-								<b>#583471</b>
-								was placed</p><time>Yesterday</time></div>
+						<div class='notif__text'>
+							<p>New order <b>#583471</b> was placed</p>
+							<time>Yesterday</time>
+						</div>
 					</li>
 				</ul>
 				<a class='notif__all' href='/notifications'>View all notifications</a>
@@ -92,9 +101,11 @@
 
 		<a class='profile' href='/profile' aria-label='Open profile'>
 			<span class='avatar' aria-hidden='true'>
-				<svg viewBox='0 0 24 24' fill='currentColor'><path
+				<svg viewBox='0 0 24 24' fill='currentColor'>
+					<path
 						d='M12 2.5l2.4 7.1 7.1 2.4-7.1 2.4L12 21.5l-2.4-7.1L2.5 12l7.1-2.4z'
-					/></svg>
+					/>
+				</svg>
 			</span>
 			<span class='profile__meta'><b>Adham</b><small>Admin</small></span>
 		</a>

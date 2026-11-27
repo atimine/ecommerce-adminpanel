@@ -1,0 +1,61 @@
+/* Login page */
+.auth {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 20px;
+	padding: 24px 16px;
+}
+
+.auth__card {
+	width: 100%;
+	max-width: 460px;
+	padding: 40px;
+	background: var(--white);
+	border-radius: var(--radius-card);
+}
+
+.auth__brand {
+	margin-bottom: 36px;
+}
+
+.auth__head h1 {
+	font-size: 28px;
+	font-weight: 500;
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+}
+.auth__head p {
+	margin-top: 8px;
+	font-size: 14px;
+	color: var(--muted);
+}
+
+.auth__form {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	margin-top: 28px;
+}
+.auth__form .btn {
+	margin-top: 8px;
+}
+
+@media (max-width: 520px) {
+	.auth {
+		justify-content: flex-start;
+		padding-top: 32px;
+	}
+	.auth__card {
+		padding: 28px 20px;
+		border-radius: 20px;
+	}
+	.auth__brand {
+		margin-bottom: 28px;
+	}
+	.auth__head h1 {
+		font-size: 24px;
+	}
+}

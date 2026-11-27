@@ -1,0 +1,28 @@
+{{!
+  One shared confirm dialog for every delete / block button.
+  Any button with data-confirm opens it:
+    <button data-confirm data-confirm-title="Delete product?" data-confirm-text="..."
+            data-confirm-action="/products/5/delete" data-confirm-button="Delete">
+  The dialog posts to data-confirm-action.
+}}
+<dialog class='dialog' id='confirmDialog' aria-labelledby='confirmTitle'>
+	<form class='dialog__box' id='confirmForm' method='post'>
+		<span class='tint tint--red dialog__icon'><svg class='icon'><use
+					href='#i-trash'
+				/></svg></span>
+		<h2 id='confirmTitle'>Are you sure?</h2>
+		<p id='confirmText'>This action can't be undone.</p>
+		<div class='dialog__actions'>
+			<button
+				class='btn btn--ghost'
+				type='button'
+				data-dialog-close
+			>Cancel</button>
+			<button
+				class='btn btn--danger'
+				type='submit'
+				id='confirmOk'
+			>Delete</button>
+		</div>
+	</form>
+</dialog>

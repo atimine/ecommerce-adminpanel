@@ -1,32 +1,36 @@
-<html lang='en'>
-	<head>
-		<meta charset='UTF-8' />
-		<meta name='viewport' content='width=device-width, initial-scale=1' />
-		<title>{{pageTitle}} | Admin Panel</title>
-		<link rel='preconnect' href='https://fonts.googleapis.com' />
-		<link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
-		<link
-			href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap'
-			rel='stylesheet'
-		/>
-		<link rel='stylesheet' href='/css/base.css' />
-	</head>
-	<body>
-		{{> icons}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{pageTitle}} | Shoplytic</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  {{#if pageCss}}<link rel="stylesheet" href="/css/{{pageCss}}.css">{{/if}}
+</head>
+<body>
+  {{> icons}}
 
-		<div class='app'>
-			{{> sidebar}}
-			<div class='overlay' id='overlay'></div>
+  <div class="app">
+    {{> sidebar}}
+    <div class="overlay" id="overlay"></div>
 
-			<div class='main'>
-				{{> navbar}}
-				<main class='content'>
-					{{{body}}}
-				</main>
-				{{> footer}}
-			</div>
-		</div>
+    <div class="main">
+      {{> navbar}}
+      <main class="content">
+        {{{body}}}
+      </main>
+      {{> footer}}
+    </div>
+  </div>
 
-		<script src='/js/main.js'></script>
-	</body>
+  {{> confirm-dialog}}
+
+  <script src="/js/main.js"></script>
+  <script src="/js/modal.js"></script>
+  {{#if pageJs}}<script src="/js/{{pageJs}}.js"></script>{{/if}}
+</body>
 </html>

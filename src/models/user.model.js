@@ -10,9 +10,10 @@ const LocationSchema = new Schema({
 const UserSchema = new Schema(
 	{
 		firstName: { type: String, required: true, minLength: 2, maxLength: 50 },
-		lastName: { type: String, required: true, minLength: 2, maxLength: 50 },
+		lastName: { type: String, minLength: 2, maxLength: 50 },
 		phone: { type: String, unique: true },
 		telegramId: { type: String, unique: true },
+		password: { type: String, required: true },
 		location: {
 			type: { LocationSchema },
 		},
@@ -20,6 +21,7 @@ const UserSchema = new Schema(
 			type: Boolean,
 			default: false,
 		},
+		tokenVersion: { type: Number, default: 0 },
 	},
 	{ timestamps: true, autoSearchIndex: true },
 )

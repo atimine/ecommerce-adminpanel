@@ -1,0 +1,43 @@
+<section class="auth__card">
+  <a href="/" class="brand auth__brand">
+    <span class="brand__mark" aria-hidden="true">
+      <svg viewBox="0 0 32 32" fill="currentColor"><path d="M6 5h7a1 1 0 0 1 1 1v8.3l5.6-6.4a1 1 0 0 1 .7-.3H26a1 1 0 0 1 .7 1.7L19.6 17l7.2 8.3A1 1 0 0 1 26 27h-6.4a1 1 0 0 1-.7-.3L14 21.2V26a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z" opacity=".95"/></svg>
+    </span>
+    <span class="brand__name">Shoplytic</span>
+  </a>
+
+  <div class="auth__head">
+    <h1>Welcome back</h1>
+    <p>Log in to manage your products, orders and clients.</p>
+  </div>
+
+  <form class="auth__form" id="loginForm" action="/auth/login" method="post" novalidate>
+    <div class="form-alert" id="formAlert" role="alert" {{#unless error}}hidden{{/unless}}>
+      <svg class="icon"><use href="#i-alert"/></svg>
+      <span id="formAlertText">{{error}}</span>
+    </div>
+
+    <div class="field">
+      <label class="field__label" for="username">Username</label>
+      <div class="input-wrap input-wrap--icon">
+        <svg class="icon input-wrap__icon"><use href="#i-user"/></svg>
+        <input class="input" type="text" id="username" name="username" placeholder="Enter your username" autocomplete="username" required>
+      </div>
+      <p class="field__error">Enter your username.</p>
+    </div>
+
+    <div class="field">
+      <label class="field__label" for="password">Password</label>
+      <div class="input-wrap input-wrap--icon input-wrap--action">
+        <svg class="icon input-wrap__icon"><use href="#i-lock"/></svg>
+        <input class="input" type="password" id="password" name="password" placeholder="Enter your password" autocomplete="current-password" required>
+        <button class="input-wrap__action" id="togglePassword" type="button" aria-label="Show password" aria-pressed="false">
+          <svg class="icon"><use href="#i-eye"/></svg>
+        </button>
+      </div>
+      <p class="field__error">Enter your password.</p>
+    </div>
+
+    <button class="btn btn--primary btn--block" type="submit">Log In</button>
+  </form>
+</section>
