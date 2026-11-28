@@ -1,0 +1,92 @@
+<form class="profile-page" id="profileForm" action="/profile" method="post" novalidate data-avatar="{{user.avatar}}">
+
+  {{!-- ============ Summary ============ --}}
+  <aside class="card profile-card" aria-label="Your profile">
+    <img class="profile-card__avatar" id="sumAvatar" src="/img/avatars/{{#if user.avatar}}{{user.avatar}}{{else}}avatar-1.svg{{/if}}" alt="Your avatar">
+    <h2 class="profile-card__name" id="sumName">{{user.name}}</h2>
+    <p class="profile-card__email" id="sumEmail">{{user.email}}</p>
+    <span class="badge badge--progress">{{#if user.role}}{{user.role}}{{else}}Admin{{/if}}</span>
+  </aside>
+
+  <div class="profile-page__main">
+
+    {{#if success}}<div class="form-alert form-alert--success" role="status"><svg class="icon"><use href="#i-check-circle"/></svg><span>{{success}}</span></div>{{/if}}
+    {{#if error}}<div class="form-alert" role="alert"><svg class="icon"><use href="#i-alert"/></svg><span>{{error}}</span></div>{{/if}}
+
+    {{!-- ============ Avatar ============ --}}
+    <section class="card" aria-labelledby="avatarTitle">
+      <h2 class="card__title" id="avatarTitle">Choose your avatar</h2>
+      <p class="card__hint">Pick one of the sample avatars.</p>
+
+      <div class="avatar-grid" role="radiogroup" aria-labelledby="avatarTitle">
+        {{!-- eight sample avatars; the first one is checked until profile.js selects the saved one --}}
+        <label class="avatar-opt"><input type="radio" name="avatar" value="avatar-1.svg" checked><img src="/img/avatars/avatar-1.svg" alt="Avatar 1"><span class="avatar-opt__check"><svg class="icon"><use href="#i-check"/></svg></span></label>
+        <label class="avatar-opt"><input type="radio" name="avatar" value="avatar-2.svg"><img src="/img/avatars/avatar-2.svg" alt="Avatar 2"><span class="avatar-opt__check"><svg class="icon"><use href="#i-check"/></svg></span></label>
+        <label class="avatar-opt"><input type="radio" name="avatar" value="avatar-3.svg"><img src="/img/avatars/avatar-3.svg" alt="Avatar 3"><span class="avatar-opt__check"><svg class="icon"><use href="#i-check"/></svg></span></label>
+        <label class="avatar-opt"><input type="radio" name="avatar" value="avatar-4.svg"><img src="/img/avatars/avatar-4.svg" alt="Avatar 4"><span class="avatar-opt__check"><svg class="icon"><use href="#i-check"/></svg></span></label>
+        <label class="avatar-opt"><input type="radio" name="avatar" value="avatar-5.svg"><img src="/img/avatars/avatar-5.svg" alt="Avatar 5"><span class="avatar-opt__check"><svg class="icon"><use href="#i-check"/></svg></span></label>
+        <label class="avatar-opt"><input type="radio" name="avatar" value="avatar-6.svg"><img src="/img/avatars/avatar-6.svg" alt="Avatar 6"><span class="avatar-opt__check"><svg class="icon"><use href="#i-check"/></svg></span></label>
+        <label class="avatar-opt"><input type="radio" name="avatar" value="avatar-7.svg"><img src="/img/avatars/avatar-7.svg" alt="Avatar 7"><span class="avatar-opt__check"><svg class="icon"><use href="#i-check"/></svg></span></label>
+        <label class="avatar-opt"><input type="radio" name="avatar" value="avatar-8.svg"><img src="/img/avatars/avatar-8.svg" alt="Avatar 8"><span class="avatar-opt__check"><svg class="icon"><use href="#i-check"/></svg></span></label>
+      </div>
+    </section>
+
+    {{!-- ============ Details ============ --}}
+    <section class="card" aria-labelledby="detailsTitle">
+      <h2 class="card__title" id="detailsTitle">Personal information</h2>
+
+      <div class="fgrid">
+        <div class="field">
+          <label class="field__label" for="pfName">Name</label>
+          <input class="input" type="text" id="pfName" name="name" maxlength="80" value="{{user.name}}" placeholder="Your name" autocomplete="name" required>
+          <p class="field__error">Enter your name.</p>
+        </div>
+        <div class="field">
+          <label class="field__label" for="pfEmail">Email</label>
+          <input class="input" type="email" id="pfEmail" name="email" maxlength="120" value="{{user.email}}" placeholder="you@example.com" autocomplete="email" required>
+          <p class="field__error">Enter a valid email address.</p>
+        </div>
+      </div>
+    </section>
+
+    {{!-- ============ Password ============ --}}
+    <section class="card" aria-labelledby="passTitle">
+      <h2 class="card__title" id="passTitle">Change password</h2>
+      <p class="card__hint">Leave these fields empty to keep your current password.</p>
+
+      <div class="fgrid">
+        <div class="field full">
+          <label class="field__label" for="pfCurrent">Current password</label>
+          <div class="input-wrap input-wrap--action">
+            <input class="input" type="password" id="pfCurrent" name="currentPassword" placeholder="Current password" autocomplete="current-password">
+            <button class="input-wrap__action" type="button" data-toggle-password="pfCurrent" aria-label="Show password" aria-pressed="false"><svg class="icon"><use href="#i-eye"/></svg></button>
+          </div>
+          <p class="field__error">Enter your current password.</p>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="pfNew">New password</label>
+          <div class="input-wrap input-wrap--action">
+            <input class="input" type="password" id="pfNew" name="newPassword" placeholder="At least 8 characters" autocomplete="new-password">
+            <button class="input-wrap__action" type="button" data-toggle-password="pfNew" aria-label="Show password" aria-pressed="false"><svg class="icon"><use href="#i-eye"/></svg></button>
+          </div>
+          <p class="field__error">Use at least 8 characters.</p>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="pfConfirm">Confirm new password</label>
+          <div class="input-wrap input-wrap--action">
+            <input class="input" type="password" id="pfConfirm" name="confirmPassword" placeholder="Repeat the new password" autocomplete="new-password">
+            <button class="input-wrap__action" type="button" data-toggle-password="pfConfirm" aria-label="Show password" aria-pressed="false"><svg class="icon"><use href="#i-eye"/></svg></button>
+          </div>
+          <p class="field__error">The passwords do not match.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="profile-actions">
+      <a class="btn btn--ghost" href="/">Cancel</a>
+      <button class="btn btn--primary" type="submit">Save changes</button>
+    </div>
+  </div>
+</form>

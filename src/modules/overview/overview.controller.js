@@ -2,9 +2,9 @@ class OverviewController {
 	async getOverviewInfo(req, res) {
 		res.render('overview', {
 			layout: 'main',
-			pageTitle: 'Dashboard',
+			pageTitle: 'Hi, Adham! Welcome back.',
 			pageDescription:
-				'Manage inventory, analyze data, and track orders with ease',
+				'Manage inventory, analyze data, and track orders with ease.',
 			pageCss: 'overview',
 		})
 	}

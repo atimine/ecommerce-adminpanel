@@ -1,0 +1,64 @@
+/* Profile page */
+.profile-page {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: var(--gap);
+  align-items: start;
+}
+.profile-page__main { display: flex; flex-direction: column; gap: var(--gap); min-width: 0; }
+.card__title { font-size: 20px; font-weight: 500; }
+.card__hint { margin-top: 4px; font-size: 14px; color: var(--muted); }
+.profile-page .fgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 20px; }
+.profile-page .fgrid .full { grid-column: 1 / -1; }
+
+/* summary */
+.profile-card {
+  position: sticky; top: var(--gap);
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 32px 24px; text-align: center;
+}
+.profile-card__avatar { width: 120px; height: 120px; margin-bottom: 10px; border-radius: 50%; object-fit: cover; background: var(--bg); }
+.profile-card__name { font-size: 22px; font-weight: 500; overflow-wrap: anywhere; }
+.profile-card__email { margin-bottom: 8px; font-size: 14px; color: var(--muted); overflow-wrap: anywhere; }
+
+/* avatar picker */
+.avatar-grid { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 20px; }
+.avatar-opt { position: relative; width: 76px; height: 76px; cursor: pointer; }
+.avatar-opt input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.avatar-opt img {
+  width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+  background: var(--bg);
+  transition: box-shadow .15s, transform .15s;
+}
+.avatar-opt:hover img { transform: scale(1.04); }
+.avatar-opt__check {
+  position: absolute; right: -2px; bottom: -2px;
+  display: none; place-items: center;
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--orange); color: var(--white);
+  border: 2px solid var(--white);
+}
+.avatar-opt__check .icon { width: 14px; height: 14px; stroke-width: 2.4; }
+.avatar-opt input:checked ~ img { box-shadow: 0 0 0 3px var(--white), 0 0 0 5px var(--orange); }
+.avatar-opt input:checked ~ .avatar-opt__check { display: grid; }
+.avatar-opt input:focus-visible ~ img { box-shadow: 0 0 0 3px var(--white), 0 0 0 5px var(--dark); }
+
+.profile-actions { display: flex; justify-content: flex-end; gap: 12px; }
+.profile-actions .btn { min-width: 150px; }
+
+@media (max-width: 1100px) {
+  .profile-page { grid-template-columns: 1fr; gap: 12px; }
+  .profile-page__main { gap: 12px; }
+  .profile-card { position: static; flex-direction: row; flex-wrap: wrap; justify-content: flex-start; text-align: left; gap: 4px 20px; padding: 20px; }
+  .profile-card__avatar { grid-row: auto; width: 84px; height: 84px; margin: 0; }
+  .profile-card > h2, .profile-card > p, .profile-card > .badge { flex-basis: calc(100% - 110px); }
+  .profile-card__email { margin-bottom: 4px; }
+}
+
+@media (max-width: 680px) {
+  .profile-page .fgrid { grid-template-columns: 1fr; }
+  .avatar-grid { gap: 12px; }
+  .avatar-opt { width: 64px; height: 64px; }
+  .profile-actions { flex-direction: column-reverse; }
+  .profile-actions .btn { width: 100%; }
+}

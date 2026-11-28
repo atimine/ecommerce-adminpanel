@@ -1,0 +1,53 @@
+<section class="card" aria-labelledby="historyTitle">
+  <div class="list-head">
+    <div>
+      <h2 id="historyTitle">Completed Orders</h2>
+      <p class="list-head__count">Total completed: <b>{{totalCompleted}}</b></p>
+    </div>
+
+    <form id="monthForm" action="/couriers/history" method="get">
+      <select class="input select select--pill" id="month" name="period" aria-label="Filter by period">
+        <option value="current" {{#unless periodLast}}{{#unless periodAll}}selected{{/unless}}{{/unless}}>This Month</option>
+        <option value="last" {{#if periodLast}}selected{{/if}}>Last Month</option>
+        <option value="all" {{#if periodAll}}selected{{/if}}>All Time</option>
+      </select>
+    </form>
+  </div>
+
+  <div class="table-wrap">
+    <table class="table table--history">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Courier</th>
+          <th>Phone</th>
+          <th>Completed Orders</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each couriers}}
+        <tr>
+          <td><span class="rank {{#if top}}rank--top{{/if}}">{{rank}}</span></td>
+          <td>
+            <div class="cell-person">
+              <span class="cell-person__avatar" aria-hidden="true">{{initials}}</span>
+              <b>{{name}}</b>
+            </div>
+          </td>
+          <td>{{phone}}</td>
+          <td>
+            <div class="meter">
+              <b class="meter__num">{{completed}}</b>
+              <span class="meter__bar" aria-hidden="true"><span style="width: {{percent}}%"></span></span>
+            </div>
+          </td>
+        </tr>
+        {{else}}
+        <tr><td class="table__empty" colspan="4">No completed orders for this period.</td></tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  {{> pager}}
+</section>

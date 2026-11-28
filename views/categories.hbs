@@ -1,0 +1,82 @@
+<section class="card" aria-labelledby="categoriesTitle">
+  <div class="list-head">
+    <div>
+      <h2 id="categoriesTitle">All Categories</h2>
+      <p class="list-head__count">Showing <b>{{total}}</b> categories</p>
+    </div>
+    <button class="btn btn--primary btn--sm-h" type="button" data-add-category data-action="/categories">
+      <svg class="icon"><use href="#i-plus"/></svg>Create Category
+    </button>
+  </div>
+
+  <div class="table-wrap">
+    <table class="table table--categories">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Products</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each categories}}
+        <tr class="{{#if suspended}}is-suspended{{/if}}">
+          <td>
+            <div class="cell-person">
+              <span class="tint {{#if suspended}}tint--gray{{else}}tint--orange{{/if}} cell-cat__icon"><svg class="icon"><use href="#i-tag"/></svg></span>
+              <b>{{name}}</b>
+            </div>
+          </td>
+          <td>{{products}}</td>
+          <td>
+            {{#if suspended}}<span class="badge badge--pending">Suspended</span>{{else}}<span class="badge badge--paid">Active</span>{{/if}}
+          </td>
+          <td>
+            <div class="row-actions">
+              {{#if suspended}}
+              <button class="btn btn--sm btn--success-soft" type="button"
+                data-confirm data-confirm-tone="success"
+                data-confirm-title="Activate this category?"
+                data-confirm-text="“{{name}}” will be visible to clients again."
+                data-confirm-action="/categories/{{id}}/activate"
+                data-confirm-button="Activate" data-confirm-dismiss="Go back">
+                <svg class="icon"><use href="#i-check-circle"/></svg>Activate
+              </button>
+              {{else}}
+              <button class="btn btn--sm btn--accent-soft" type="button"
+                data-confirm data-confirm-icon="i-pause"
+                data-confirm-title="Suspend this category?"
+                data-confirm-text="“{{name}}” will be hidden from clients until you activate it again."
+                data-confirm-action="/categories/{{id}}/suspend"
+                data-confirm-button="Suspend" data-confirm-dismiss="Go back">
+                <svg class="icon"><use href="#i-pause"/></svg>Suspend
+              </button>
+              {{/if}}
+
+              <button class="round-btn" type="button" aria-label="Edit {{name}}"
+                data-edit-category data-action="/categories/{{id}}/edit" data-name="{{name}}">
+                <svg class="icon"><use href="#i-edit"/></svg>
+              </button>
+              <button class="round-btn round-btn--danger" type="button" aria-label="Delete {{name}}"
+                data-confirm
+                data-confirm-title="Delete category?"
+                data-confirm-text="“{{name}}” will be removed permanently.{{#if products}} It has {{products}} products.{{/if}}"
+                data-confirm-action="/categories/{{id}}/delete"
+                data-confirm-button="Delete">
+                <svg class="icon"><use href="#i-trash"/></svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+        {{else}}
+        <tr><td class="table__empty" colspan="4">No categories yet. Create the first one.</td></tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  {{#if pagination}}{{> pager}}{{/if}}
+</section>
+
+{{> category-dialog}}

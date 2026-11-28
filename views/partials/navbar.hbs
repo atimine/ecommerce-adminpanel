@@ -1,113 +1,60 @@
-<header class='navbar'>
-	<button
-		class='icon-btn navbar__burger'
-		id='sidebarOpen'
-		type='button'
-		aria-label='Open menu'
-	>
-		<svg class='icon'><use href='#i-menu' /></svg>
-	</button>
+<header class="navbar">
+  <button class="icon-btn navbar__burger" id="sidebarOpen" type="button" aria-label="Open menu">
+    <svg class="icon"><use href="#i-menu"/></svg>
+  </button>
 
-	<div class='navbar__title'>
-		<h1>Hi, Adham! Welcome back.</h1>
-		<p>Manage inventory, analyze data, and track orders with ease.</p>
-	</div>
+  <div class="navbar__title">
+    <h1>{{pageTitle}}</h1>
+    <p>{{pageDescription}}</p>
+  </div>
 
-	<form
-		class='search navbar__search'
-		role='search'
-		action='/search'
-		method='get'
-	>
-		<svg class='icon'><use href='#i-search' /></svg>
-		<input
-			type='search'
-			name='q'
-			placeholder='Search product...'
-			aria-label='Search product'
-		/>
-	</form>
+  <form class="search navbar__search" role="search" action="{{#if searchAction}}{{searchAction}}{{else}}/search{{/if}}" method="get">
+    <svg class="icon"><use href="#i-search"/></svg>
+    <input type="search" name="q" value="{{q}}" placeholder="{{#if searchPlaceholder}}{{searchPlaceholder}}{{else}}Search product...{{/if}}" aria-label="Search">
+  </form>
 
-	<div class='navbar__actions'>
-		<div class='notif' id='notif'>
-			<button
-				class='notif__btn'
-				id='notifBtn'
-				type='button'
-				aria-label='Notifications'
-				aria-expanded='false'
-			>
-				<svg class='icon'><use href='#i-bell' /></svg>
-				<span class='notif__dot' id='notifDot'></span>
-			</button>
+  <div class="navbar__actions">
+    <div class="notif" id="notif">
+      <button class="notif__btn" id="notifBtn" type="button" aria-label="Notifications" aria-expanded="false">
+        <svg class="icon"><use href="#i-bell"/></svg>
+        <span class="notif__dot" id="notifDot"></span>
+      </button>
 
-			<div
-				class='notif__panel'
-				id='notifPanel'
-				role='dialog'
-				aria-label='Notifications'
-			>
-				<div class='notif__head'>
-					<strong>Notifications</strong>
-					<button class='notif__read' id='notifRead' type='button'>
-						<svg class='icon'><use href='#i-check-all' /></svg>Mark all as read
-					</button>
-				</div>
-				<ul class='notif__list'>
-					<li class='notif__item is-unread'>
-						<span class='notif__ico notif__ico--user'><svg class='icon'><use
-									href='#i-user-plus'
-								/></svg></span>
-						<div class='notif__text'>
-							<p><b>Aziza Karimova</b> joined as a new client</p>
-							<time>2 min ago</time>
-						</div>
-					</li>
-					<li class='notif__item is-unread'>
-						<span class='notif__ico notif__ico--order'><svg class='icon'><use
-									href='#i-bag'
-								/></svg></span>
-						<div class='notif__text'>
-							<p>
-								New order
-								<b>#583488</b>
-								is waiting for confirmation
-							</p>
-							<time>15 min ago</time>
-						</div>
-					</li>
-					<li class='notif__item is-unread'>
-						<span class='notif__ico notif__ico--msg'><svg class='icon'><use
-									href='#i-message'
-								/></svg></span>
-						<div class='notif__text'>
-							<p><b>Jasur T.</b> sent you a message</p>
-							<time>1 hour ago</time>
-						</div>
-					</li>
-					<li class='notif__item'>
-						<span class='notif__ico notif__ico--order'><svg class='icon'><use
-									href='#i-bag'
-								/></svg></span>
-						<div class='notif__text'>
-							<p>New order <b>#583471</b> was placed</p>
-							<time>Yesterday</time>
-						</div>
-					</li>
-				</ul>
-				<a class='notif__all' href='/notifications'>View all notifications</a>
-			</div>
-		</div>
+      {{!-- Sample data. Replace with {{#each notifications}} when the backend is ready. --}}
+      <div class="notif__panel" id="notifPanel" role="dialog" aria-label="Notifications">
+        <div class="notif__head">
+          <strong>Notifications</strong>
+          <button class="notif__read" id="notifRead" type="button">
+            <svg class="icon"><use href="#i-check-all"/></svg>Mark all as read
+          </button>
+        </div>
+        <ul class="notif__list">
+          <li class="notif__item is-unread">
+            <span class="notif__ico notif__ico--user"><svg class="icon"><use href="#i-user-plus"/></svg></span>
+            <div class="notif__text"><p><b>Aziza Karimova</b> joined as a new client</p><time>2 min ago</time></div>
+          </li>
+          <li class="notif__item is-unread">
+            <span class="notif__ico notif__ico--order"><svg class="icon"><use href="#i-bag"/></svg></span>
+            <div class="notif__text"><p>New order <b>#583488</b> is waiting for confirmation</p><time>15 min ago</time></div>
+          </li>
+          <li class="notif__item is-unread">
+            <span class="notif__ico notif__ico--msg"><svg class="icon"><use href="#i-message"/></svg></span>
+            <div class="notif__text"><p><b>Jasur T.</b> sent you a message</p><time>1 hour ago</time></div>
+          </li>
+          <li class="notif__item">
+            <span class="notif__ico notif__ico--order"><svg class="icon"><use href="#i-bag"/></svg></span>
+            <div class="notif__text"><p>New order <b>#583471</b> was placed</p><time>Yesterday</time></div>
+          </li>
+        </ul>
+        <a class="notif__all" href="/notifications">View all notifications</a>
+      </div>
+    </div>
 
-		<a class='profile' href='/profile' aria-label='Open profile'>
-			<span class='avatar' aria-hidden='true'>
-				<svg viewBox='0 0 24 24' fill='currentColor'>
-					<path
-						d='M12 2.5l2.4 7.1 7.1 2.4-7.1 2.4L12 21.5l-2.4-7.1L2.5 12l7.1-2.4z'
-					/>
-				</svg>
-			</span>
-			<span class='profile__meta'><b>Adham</b><small>Admin</small></span>
-		</a>
-	</div>
+    <a class="profile" href="/profile" aria-label="Open profile">
+      <span class="avatar" aria-hidden="true">
+        {{#if user.avatar}}<img src="/img/avatars/{{user.avatar}}" alt="">{{else}}<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2.4 7.1 7.1 2.4-7.1 2.4L12 21.5l-2.4-7.1L2.5 12l7.1-2.4z"/></svg>{{/if}}
+      </span>
+      <span class="profile__meta"><b>{{#if user.name}}{{user.name}}{{else}}Adham{{/if}}</b><small>{{#if user.role}}{{user.role}}{{else}}Admin{{/if}}</small></span>
+    </a>
+  </div>
 </header>

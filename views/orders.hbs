@@ -1,0 +1,93 @@
+{{!--
+  A url left empty makes that pagination button disabled.
+--}}
+<div class="orders">
+
+  <section class="stats-grid stats-grid--compact" aria-label="Order status totals">
+    <article class="stat">
+      <header class="stat__top"><h2>Payment Refund</h2><span class="tint tint--orange"><svg class="icon"><use href="#i-refund"/></svg></span></header>
+      <p class="stat__value">{{stats.refund}}</p>
+    </article>
+    <article class="stat">
+      <header class="stat__top"><h2>Order Cancel</h2><span class="tint tint--red"><svg class="icon"><use href="#i-cart-x"/></svg></span></header>
+      <p class="stat__value">{{stats.cancel}}</p>
+    </article>
+    <article class="stat">
+      <header class="stat__top"><h2>Order Shipped</h2><span class="tint tint--blue"><svg class="icon"><use href="#i-package"/></svg></span></header>
+      <p class="stat__value">{{stats.shipped}}</p>
+    </article>
+    <article class="stat">
+      <header class="stat__top"><h2>Order Delivering</h2><span class="tint tint--purple"><svg class="icon"><use href="#i-truck"/></svg></span></header>
+      <p class="stat__value">{{stats.delivering}}</p>
+    </article>
+    <article class="stat">
+      <header class="stat__top"><h2>Pending Review</h2><span class="tint tint--yellow"><svg class="icon"><use href="#i-file-check"/></svg></span></header>
+      <p class="stat__value">{{stats.review}}</p>
+    </article>
+    <article class="stat">
+      <header class="stat__top"><h2>Pending Payment</h2><span class="tint tint--pink"><svg class="icon"><use href="#i-hourglass"/></svg></span></header>
+      <p class="stat__value">{{stats.pendingPayment}}</p>
+    </article>
+    <article class="stat">
+      <header class="stat__top"><h2>Delivered</h2><span class="tint tint--teal"><svg class="icon"><use href="#i-package-check"/></svg></span></header>
+      <p class="stat__value">{{stats.delivered}}</p>
+    </article>
+    <article class="stat">
+      <header class="stat__top"><h2>In Progress</h2><span class="tint tint--indigo"><svg class="icon"><use href="#i-file-text"/></svg></span></header>
+      <p class="stat__value">{{stats.inProgress}}</p>
+    </article>
+  </section>
+
+  <section class="card" aria-labelledby="ordersTitle">
+    <div class="orders__head">
+      <h2 id="ordersTitle">All Order List</h2>
+
+      <form id="monthForm" action="/orders" method="get">
+        <select class="input select select--pill" id="month" name="month" aria-label="Filter by month">
+          <option value="current" {{#unless monthLast}}selected{{/unless}}>This Month</option>
+          <option value="last" {{#if monthLast}}selected{{/if}}>Last Month</option>
+        </select>
+      </form>
+    </div>
+
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Created Date</th>
+            <th>Customer Name</th>
+            <th>Priority</th>
+            <th>Total Amount</th>
+            <th>Payment Status</th>
+            <th>Items</th>
+            <th>Delivery Number</th>
+            <th>Order Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each orders}}
+          <tr>
+            <td>{{id}}</td>
+            <td>{{date}}</td>
+            <td>{{customer}}</td>
+            <td>{{priority}}</td>
+            <td>{{total}}</td>
+            <td><span class="badge badge--{{paymentClass}}">{{paymentStatus}}</span></td>
+            <td>{{items}}</td>
+            <td>{{delivery}}</td>
+            <td><span class="badge badge--{{statusClass}}">{{status}}</span></td>
+            <td><a class="round-btn" href="/orders/edit?order={{uid}}" aria-label="Edit order {{id}}"><svg class="icon"><use href="#i-edit"/></svg></a></td>
+          </tr>
+          {{else}}
+          <tr><td class="table__empty" colspan="10">No orders found for this period.</td></tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+
+    {{> pager}}
+  </section>
+
+</div>

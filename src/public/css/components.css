@@ -226,7 +226,7 @@
 	gap: 4px 8px;
 	margin-top: 14px;
 	min-height: 20px;
-	font-size: 14px;
+	font-size: 13px;
 }
 .trend {
 	display: inline-flex;
@@ -252,7 +252,7 @@
 	align-items: center;
 	gap: 4px;
 	margin-left: auto;
-	font-size: 13px;
+	font-size: 12px;
 }
 .stat__more .icon {
 	width: 14px;
@@ -488,4 +488,220 @@ textarea.input {
 .field__count {
 	font-size: 12px;
 	color: var(--muted);
+}
+
+/* ---------- Table ---------- */
+.table-wrap {
+	border: 1px solid var(--line);
+	border-radius: 18px;
+	overflow-x: auto;
+}
+.table {
+	width: 100%;
+	min-width: 900px;
+	border-collapse: collapse;
+	font-size: 14px;
+}
+.table th {
+	padding: 14px 12px;
+	text-align: left;
+	white-space: nowrap;
+	font-weight: 400;
+	color: var(--muted);
+	background: var(--bg);
+	border-bottom: 1px solid var(--line);
+}
+.table td {
+	padding: 14px 12px;
+	white-space: nowrap;
+	border-top: 1px solid var(--line);
+}
+.table tbody tr:first-child td {
+	border-top: 0;
+}
+.table tbody tr:hover td {
+	background: #fcfcfa;
+}
+.table th:last-child,
+.table td:last-child {
+	text-align: center;
+}
+.table__empty {
+	padding: 48px 16px !important;
+	text-align: center !important;
+	color: var(--muted);
+	white-space: normal !important;
+}
+
+/* ---------- Status badges ---------- */
+.badge {
+	display: inline-block;
+	padding: 4px 10px;
+	border-radius: 6px;
+	font-size: 13px;
+	line-height: 1.4;
+}
+.badge--paid,
+.badge--completed,
+.badge--delivered {
+	background: #e5f8ec;
+	color: #16a34a;
+}
+.badge--unpaid,
+.badge--canceled {
+	background: #fdebec;
+	color: #d92d20;
+}
+.badge--packaging,
+.badge--pending {
+	background: #fff4e3;
+	color: #e08a00;
+}
+.badge--draft {
+	background: #f1f1ee;
+	color: #55554f;
+}
+.badge--shipped {
+	background: #e2f0fd;
+	color: #2f8de4;
+}
+.badge--delivering {
+	background: #f1e6fd;
+	color: #9333ea;
+}
+.badge--progress {
+	background: #e9ecff;
+	color: #5b6cf2;
+}
+
+/* ---------- Pagination ---------- */
+.pager {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	margin-top: 24px;
+}
+.pager__info {
+	font-size: 14px;
+}
+.pager__info b {
+	font-weight: 500;
+}
+.pager__btns {
+	display: flex;
+	gap: 10px;
+}
+.pager__btn {
+	display: grid;
+	place-items: center;
+	width: 44px;
+	height: 44px;
+	border-radius: 50%;
+	background: var(--bg);
+	color: var(--dark);
+	transition: background-color 0.15s;
+}
+.pager__btn .icon {
+	width: 18px;
+	height: 18px;
+}
+a.pager__btn:hover {
+	background: var(--orange-soft);
+	color: var(--orange);
+}
+.pager__btn.is-disabled {
+	background: transparent;
+	color: #b8b8b2;
+	cursor: not-allowed;
+}
+
+/* ---------- Pill select (month filter etc.) ---------- */
+.select--pill {
+	width: auto;
+	height: 46px;
+	padding: 0 46px 0 20px;
+	border-radius: 999px;
+	background-position: right 16px center;
+	color: var(--dark);
+}
+
+/* ---------- Small buttons (table row actions) ---------- */
+.btn--sm {
+	height: 36px;
+	padding: 0 14px;
+	gap: 6px;
+	font-size: 14px;
+}
+.btn--sm .icon {
+	width: 16px;
+	height: 16px;
+}
+.btn--success-soft {
+	background: #e5f8ec;
+	color: #16a34a;
+}
+.btn--success-soft:hover {
+	background: #d3f3e0;
+}
+.btn--danger-soft {
+	background: #fdebec;
+	color: #d92d20;
+}
+.btn--danger-soft:hover {
+	background: #fadadc;
+}
+.btn--accent-soft {
+	background: var(--orange-soft);
+	color: #d98200;
+}
+.btn--accent-soft:hover {
+	background: #ffeacb;
+}
+.row-actions {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+}
+
+/* ---------- List page header (title + count + action) ---------- */
+.list-head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	margin-bottom: 20px;
+}
+.list-head h2 {
+	font-size: 20px;
+	font-weight: 500;
+}
+.list-head__count {
+	margin-top: 4px;
+	font-size: 13px;
+	color: var(--muted);
+}
+.list-head__count b {
+	font-weight: 500;
+	color: var(--dark);
+}
+
+.btn--sm-h {
+	height: 46px;
+	padding: 0 22px;
+}
+@media (max-width: 520px) {
+	.list-head {
+		flex-wrap: wrap;
+	}
+}
+
+.tint--gray {
+	background: #f1f1ee;
+	color: #8a8a84;
+}
+
+.form-alert--success {
+	background: #e5f8ec;
+	color: #15803d;
 }

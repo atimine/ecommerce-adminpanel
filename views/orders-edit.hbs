@@ -1,0 +1,107 @@
+<div class="orders-edit">
+
+  <section class="card">
+    <nav class="tabs" aria-label="Order groups">
+      <a class="tab {{#if tabNew}}is-active{{/if}}" href="/orders/edit?tab=new" {{#if tabNew}}aria-current="page"{{/if}}>New Orders <span class="tab__count">{{counts.new}}</span></a>
+      <a class="tab {{#if tabConfirmed}}is-active{{/if}}" href="/orders/edit?tab=confirmed" {{#if tabConfirmed}}aria-current="page"{{/if}}>Confirmed Orders <span class="tab__count">{{counts.confirmed}}</span></a>
+      <a class="tab {{#if tabCanceled}}is-active{{/if}}" href="/orders/edit?tab=canceled" {{#if tabCanceled}}aria-current="page"{{/if}}>Canceled Orders <span class="tab__count">{{counts.canceled}}</span></a>
+    </nav>
+
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Created Date</th>
+            <th>Customer Name</th>
+            <th>Address</th>
+            <th>Items</th>
+            <th>Total Amount</th>
+            <th>Payment Status</th>
+            {{#if tabConfirmed}}<th>Courier</th>{{/if}}
+            {{#if tabCanceled}}<th>Order Status</th>{{else}}<th>Action</th>{{/if}}
+          </tr>
+        </thead>
+        <tbody>
+          {{#each orders}}
+          <tr>
+            <td>{{id}}</td>
+            <td>{{date}}</td>
+            <td>{{customer}}</td>
+            <td class="cell-address" title="{{address}}">{{address}}</td>
+            <td>{{items}}</td>
+            <td>{{total}}</td>
+            <td><span class="badge badge--{{paymentClass}}">{{paymentStatus}}</span></td>
+            {{#if ../tabConfirmed}}
+            <td>{{#if courier}}{{courier}}{{else}}<span class="badge badge--pending">Not assigned</span>{{/if}}</td>
+            <td>
+              <button class="btn btn--sm btn--accent-soft" type="button"
+                data-assign data-order="{{uid}}" data-order-id="{{id}}" data-current="{{courierId}}">
+                <svg class="icon"><use href="#i-truck"/></svg>{{#if courier}}Change{{else}}Assign Courier{{/if}}
+              </button>
+            </td>
+            {{/if}}
+            {{#if ../tabNew}}
+            <td>
+              <div class="row-actions">
+                <button class="btn btn--sm btn--success-soft" type="button"
+                  data-confirm data-confirm-tone="success"
+                  data-confirm-title="Confirm this order?"
+                  data-confirm-text="Order {{id}} for {{customer}} will be confirmed and can be assigned to a courier."
+                  data-confirm-action="/orders/{{uid}}/confirm"
+                  data-confirm-button="Confirm order" data-confirm-dismiss="Go back">
+                  <svg class="icon"><use href="#i-check-circle"/></svg>Confirm
+                </button>
+                <button class="btn btn--sm btn--danger-soft" type="button"
+                  data-confirm data-confirm-icon="i-ban"
+                  data-confirm-title="Cancel this order?"
+                  data-confirm-text="Order {{id}} for {{customer}} will be moved to Canceled Orders."
+                  data-confirm-action="/orders/{{uid}}/cancel"
+                  data-confirm-button="Cancel order" data-confirm-dismiss="Go back">
+                  <svg class="icon"><use href="#i-ban"/></svg>Cancel
+                </button>
+              </div>
+            </td>
+            {{/if}}
+            {{#if ../tabCanceled}}
+            <td><span class="badge badge--canceled">Canceled</span></td>
+            {{/if}}
+          </tr>
+          {{else}}
+          <tr><td class="table__empty" colspan="9">No orders in this group.</td></tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+
+    {{> pager}}
+  </section>
+
+</div>
+
+{{#if tabConfirmed}}
+{{!-- ============ Assign courier dialog ============ --}}
+<dialog class="dialog" id="courierDialog" aria-labelledby="courierTitle">
+  <form class="dialog__box" id="courierForm" method="post" novalidate>
+    <span class="tint tint--blue dialog__icon"><svg class="icon"><use href="#i-truck"/></svg></span>
+    <h2 id="courierTitle">Assign courier</h2>
+    <p id="courierText">Choose who will deliver this order.</p>
+
+    <div class="field dialog__field">
+      <label class="field__label" for="courierSelect">Courier</label>
+      <select class="input select" id="courierSelect" name="courier" required>
+        <option value="" disabled selected>Choose a courier</option>
+        {{#each couriers}}
+        <option value="{{id}}">{{name}}{{#if phone}} · {{phone}}{{/if}}</option>
+        {{/each}}
+      </select>
+      <p class="field__error">Choose a courier.</p>
+    </div>
+
+    <div class="dialog__actions">
+      <button class="btn btn--ghost" type="button" data-dialog-close>Cancel</button>
+      <button class="btn btn--primary" type="submit">Assign</button>
+    </div>
+  </form>
+</dialog>
+{{/if}}

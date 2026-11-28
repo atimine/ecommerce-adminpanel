@@ -1,0 +1,82 @@
+
+<form class="pform" id="productForm" action="/products" method="post" enctype="multipart/form-data" novalidate data-has-image="{{#if product.image}}true{{/if}}">
+
+  {{!-- ============ Live preview ============ --}}
+  <aside class="pv card" aria-label="Product preview">
+    <div class="pv__media">
+      <img id="pvImage" src="{{#if product.image}}{{product.image}}{{else}}/img/placeholder.svg{{/if}}" alt="Product preview" onerror="this.onerror=null;this.src='/img/placeholder.svg'">
+    </div>
+    <div class="pv__thumbs" id="pvThumbs" hidden></div>
+
+    <h2 class="pv__name" id="pvName">{{#if product.name}}{{product.name}}{{else}}Product name{{/if}}</h2>
+    <p class="pv__desc" id="pvDesc">{{#if product.description}}{{product.description}}{{else}}Short description about the product{{/if}}</p>
+    <p class="pv__price" id="pvPrice">$ {{#if product.price}}{{product.price}}{{else}}0.00{{/if}}</p>
+
+    <div class="pv__actions">
+      <a class="btn btn--soft" href="/products">Cancel</a>
+      <button class="btn btn--primary" type="submit">{{submitLabel}}</button>
+    </div>
+  </aside>
+
+  <div class="pform__main">
+
+    {{!-- ============ Upload ============ --}}
+    <section class="card upload-field" aria-labelledby="uploadTitle">
+      <h2 class="card__title" id="uploadTitle">Add Thumbnail Photo</h2>
+
+      <label class="drop" id="drop">
+        <input type="file" id="images" name="images" accept="image/png,image/jpeg,image/gif" multiple>
+        <svg class="icon drop__icon"><use href="#i-tray-down"/></svg>
+        <span class="drop__btn">Upload</span>
+        <span class="drop__title">Drop your images here, or click to browse</span>
+        <span class="drop__hint">1600 x 1200 (4:3) recommended. PNG, JPG and GIF files are allowed (up to 5 images, 5 MB each)</span>
+      </label>
+      <p class="field__error" id="uploadError" role="alert"></p>
+
+      <ul class="thumbs" id="thumbs" aria-label="Uploaded images" hidden></ul>
+    </section>
+
+    {{!-- ============ Information ============ --}}
+    <section class="card" aria-labelledby="infoTitle">
+      <h2 class="card__title" id="infoTitle">Product Information</h2>
+
+      <div class="fgrid">
+        <div class="field full">
+          <label class="field__label" for="name">Product Name</label>
+          <input class="input" type="text" id="name" name="name" maxlength="80" placeholder="Items Name" value="{{product.name}}" autocomplete="off" required>
+          <p class="field__error">Enter the product name.</p>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="category">Product Category</label>
+          <select class="input select" id="category" name="category" required>
+            <option value="" disabled {{#unless product.category}}selected{{/unless}}>Choose a category</option>
+            {{#each categories}}
+            <option value="{{slug}}" {{#if selected}}selected{{/if}}>{{name}}</option>
+            {{/each}}
+          </select>
+          <p class="field__error">Choose a category.</p>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="price">Price</label>
+          <div class="prefix-field">
+            <span>$</span>
+            <input class="input" type="number" id="price" name="price" min="0" step="0.01" inputmode="decimal" placeholder="0.00" value="{{product.price}}" required>
+          </div>
+          <p class="field__error">Enter a price greater than 0.</p>
+        </div>
+
+        <div class="field full">
+          <div class="field__row">
+            <label class="field__label" for="description">Description</label>
+            <span class="field__count" id="descCount">0 / 300</span>
+          </div>
+          <textarea class="input" id="description" name="description" maxlength="300" placeholder="Short description about the product" required>{{product.description}}</textarea>
+          <p class="field__error">Enter a short description.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</form>

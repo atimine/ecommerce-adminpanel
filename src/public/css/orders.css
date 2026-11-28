@@ -1,0 +1,58 @@
+/* Orders list page */
+.orders {
+	display: flex;
+	flex-direction: column;
+	gap: var(--gap);
+}
+
+.orders__head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	margin-bottom: 20px;
+}
+.orders__head h2 {
+	font-size: 20px;
+	font-weight: 500;
+}
+
+/* 8 status cards: stay two per row on phones instead of one */
+@media (max-width: 480px) {
+	.stats-grid--compact {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 10px;
+	}
+	.stats-grid--compact .stat {
+		padding: 14px;
+		border-radius: 18px;
+	}
+	.stats-grid--compact .stat__top h2 {
+		font-size: 14px;
+	}
+	.stats-grid--compact .tint {
+		width: 36px;
+		height: 36px;
+		border-radius: 10px;
+	}
+	.stats-grid--compact .stat__value {
+		margin-top: 14px;
+		font-size: 28px;
+	}
+}
+
+@media (max-width: 520px) {
+	.orders__head {
+		flex-wrap: wrap;
+	}
+	.pager {
+		margin-top: 20px;
+	}
+	.pager__btns {
+		gap: 6px;
+	}
+	.pager__btn {
+		width: 40px;
+		height: 40px;
+	}
+}

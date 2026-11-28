@@ -35,8 +35,8 @@ class AuthController {
 				error: 'Password is wrong',
 			})
 
-		const { _id, firstName } = existingAdmin
-		const token = signToken({ _id, firstName })
+		const { _id: id, firstName } = existingAdmin
+		const token = await signToken({ id, firstName })
 
 		res.cookie('token', token, {
 			httpOnly: true,
@@ -45,10 +45,13 @@ class AuthController {
 			sameSite: true,
 		})
 
-		res.redirect('/')
+		res.redirect('/overview')
 	}
 
-	async logout() {}
+	async logout(req, res) {
+		res.clearCookie('token')
+		res.redirect('/auth/login')
+	}
 }
 
 module.exports = new AuthController()

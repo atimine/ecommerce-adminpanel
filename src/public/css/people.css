@@ -1,0 +1,118 @@
+/* Clients and Couriers lists */
+
+.table--people {
+	min-width: 820px;
+}
+
+.cell-person {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+.cell-person b {
+	font-weight: 500;
+}
+.cell-person__avatar {
+	display: grid;
+	place-items: center;
+	flex: none;
+	width: 38px;
+	height: 38px;
+	border-radius: 50%;
+	background: var(--orange-soft);
+	color: var(--orange);
+	font-size: 13px;
+	font-weight: 500;
+}
+.badge--sm {
+	padding: 2px 8px;
+	font-size: 12px;
+}
+
+.is-blocked .cell-person b,
+.is-blocked td:not(:nth-child(1)):not(:nth-child(5)):not(:nth-child(6)) {
+	color: var(--muted);
+}
+.is-blocked .cell-person__avatar {
+	background: #f1f1ee;
+	color: #8a8a84;
+}
+
+.cell-clip {
+	max-width: 190px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* add / edit dialog */
+.dialog--form {
+	max-width: 480px;
+}
+.person-fields {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	margin-top: 20px;
+}
+.dialog--form .dialog__actions {
+	margin-top: 24px;
+}
+
+@media (max-width: 520px) {
+	.dialog__box {
+		padding: 22px 18px;
+	}
+}
+
+/* courier history */
+.table--history {
+	min-width: 640px;
+}
+.table--history th:last-child,
+.table--history td:last-child {
+	text-align: left;
+}
+.table--history th:first-child,
+.table--history td:first-child {
+	width: 64px;
+}
+
+.rank {
+	display: inline-grid;
+	place-items: center;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	background: var(--bg);
+	font-size: 14px;
+	font-weight: 500;
+}
+.rank--top {
+	background: var(--orange-soft);
+	color: var(--orange);
+}
+
+.meter {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	min-width: 240px;
+}
+.meter__num {
+	flex: none;
+	min-width: 40px;
+	font-weight: 500;
+}
+.meter__bar {
+	flex: 1;
+	height: 8px;
+	border-radius: 4px;
+	background: #ffe9c7;
+	overflow: hidden;
+}
+.meter__bar span {
+	display: block;
+	height: 100%;
+	border-radius: 4px;
+	background: var(--orange);
+}

@@ -1,0 +1,43 @@
+{{!
+  Create / edit category dialog.
+    create: <button data-add-category data-action="/categories">
+    edit:   <button data-edit-category data-action="/categories/5/edit" data-name="T-Shirts">
+  The dialog posts to data-action (field: name).
+}}
+<dialog
+	class='dialog dialog--form'
+	id='categoryDialog'
+	aria-labelledby='categoryTitle'
+>
+	<form class='dialog__box' id='categoryForm' method='post' novalidate>
+		<h2 id='categoryTitle'>Create category</h2>
+
+		<div class='field person-fields'>
+			<label class='field__label' for='categoryName'>Category name</label>
+			<input
+				class='input'
+				type='text'
+				id='categoryName'
+				name='name'
+				maxlength='60'
+				placeholder='e.g. T-Shirts'
+				autocomplete='off'
+				required
+			/>
+			<p class='field__error'>Enter the category name.</p>
+		</div>
+
+		<div class='dialog__actions'>
+			<button
+				class='btn btn--ghost'
+				type='button'
+				data-dialog-close
+			>Cancel</button>
+			<button
+				class='btn btn--primary'
+				type='submit'
+				id='categorySubmit'
+			>Create</button>
+		</div>
+	</form>
+</dialog>

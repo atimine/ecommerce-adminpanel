@@ -1,0 +1,83 @@
+<section class="card" aria-labelledby="clientsTitle">
+  <div class="list-head">
+    <div>
+      <h2 id="clientsTitle">All Clients</h2>
+      <p class="list-head__count">Showing <b>{{total}}</b> clients</p>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table class="table table--people">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Telegram ID</th>
+          <th>Location</th>
+          <th>Access</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each clients}}
+        <tr class="{{#if blocked}}is-blocked{{/if}}">
+          <td>
+            <div class="cell-person">
+              <span class="cell-person__avatar" aria-hidden="true">{{initials}}</span>
+              <b>{{name}}</b>
+              {{#if blocked}}<span class="badge badge--canceled badge--sm">Blocked</span>{{/if}}
+            </div>
+          </td>
+          <td>{{phone}}</td>
+          <td>{{telegramId}}</td>
+          <td class="cell-clip" title="{{location}}">{{location}}</td>
+          <td>
+            {{#if blocked}}
+            <button class="btn btn--sm btn--success-soft" type="button"
+              data-confirm data-confirm-tone="success"
+              data-confirm-title="Unblock this client?"
+              data-confirm-text="{{name}} will be able to order again."
+              data-confirm-action="/clients/{{id}}/unblock"
+              data-confirm-button="Unblock" data-confirm-dismiss="Go back">
+              <svg class="icon"><use href="#i-check-circle"/></svg>Unblock
+            </button>
+            {{else}}
+            <button class="btn btn--sm btn--danger-soft" type="button"
+              data-confirm data-confirm-icon="i-ban"
+              data-confirm-title="Block this client?"
+              data-confirm-text="{{name}} will not be able to place new orders until you unblock them."
+              data-confirm-action="/clients/{{id}}/block"
+              data-confirm-button="Block" data-confirm-dismiss="Go back">
+              <svg class="icon"><use href="#i-ban"/></svg>Block
+            </button>
+            {{/if}}
+          </td>
+          <td>
+            <div class="row-actions">
+              <button class="round-btn" type="button" aria-label="Edit {{name}}"
+                data-edit-person data-action="/clients/{{id}}/edit"
+                data-name="{{name}}" data-phone="{{phone}}" data-telegram="{{telegramId}}" data-location="{{location}}">
+                <svg class="icon"><use href="#i-edit"/></svg>
+              </button>
+              <button class="round-btn round-btn--danger" type="button" aria-label="Delete {{name}}"
+                data-confirm
+                data-confirm-title="Delete client?"
+                data-confirm-text="{{name}} will be removed permanently."
+                data-confirm-action="/clients/{{id}}/delete"
+                data-confirm-button="Delete">
+                <svg class="icon"><use href="#i-trash"/></svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+        {{else}}
+        <tr><td class="table__empty" colspan="6">No clients found.</td></tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  {{> pager}}
+</section>
+
+{{> person-dialog editTitle="Edit client"}}

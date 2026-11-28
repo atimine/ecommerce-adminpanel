@@ -1,0 +1,86 @@
+<section class="card" aria-labelledby="couriersTitle">
+  <div class="list-head">
+    <div>
+      <h2 id="couriersTitle">All Couriers</h2>
+      <p class="list-head__count">Showing <b>{{total}}</b> couriers</p>
+    </div>
+    <button class="btn btn--primary btn--sm-h" type="button" data-add-person data-action="/couriers">
+      <svg class="icon"><use href="#i-plus"/></svg>Add Courier
+    </button>
+  </div>
+
+  <div class="table-wrap">
+    <table class="table table--people">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Telegram ID</th>
+          <th>Location</th>
+          <th>Access</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each couriers}}
+        <tr class="{{#if blocked}}is-blocked{{/if}}">
+          <td>
+            <div class="cell-person">
+              <span class="cell-person__avatar" aria-hidden="true">{{initials}}</span>
+              <b>{{name}}</b>
+              {{#if blocked}}<span class="badge badge--canceled badge--sm">Blocked</span>{{/if}}
+            </div>
+          </td>
+          <td>{{phone}}</td>
+          <td>{{telegramId}}</td>
+          <td class="cell-clip" title="{{location}}">{{location}}</td>
+          <td>
+            {{#if blocked}}
+            <button class="btn btn--sm btn--success-soft" type="button"
+              data-confirm data-confirm-tone="success"
+              data-confirm-title="Unblock this courier?"
+              data-confirm-text="{{name}} will be available for deliveries again."
+              data-confirm-action="/couriers/{{id}}/unblock"
+              data-confirm-button="Unblock" data-confirm-dismiss="Go back">
+              <svg class="icon"><use href="#i-check-circle"/></svg>Unblock
+            </button>
+            {{else}}
+            <button class="btn btn--sm btn--danger-soft" type="button"
+              data-confirm data-confirm-icon="i-ban"
+              data-confirm-title="Block this courier?"
+              data-confirm-text="{{name}} will not be available for new deliveries until you unblock them."
+              data-confirm-action="/couriers/{{id}}/block"
+              data-confirm-button="Block" data-confirm-dismiss="Go back">
+              <svg class="icon"><use href="#i-ban"/></svg>Block
+            </button>
+            {{/if}}
+          </td>
+          <td>
+            <div class="row-actions">
+              <button class="round-btn" type="button" aria-label="Edit {{name}}"
+                data-edit-person data-action="/couriers/{{id}}/edit"
+                data-name="{{name}}" data-phone="{{phone}}" data-telegram="{{telegramId}}" data-location="{{location}}">
+                <svg class="icon"><use href="#i-edit"/></svg>
+              </button>
+              <button class="round-btn round-btn--danger" type="button" aria-label="Delete {{name}}"
+                data-confirm
+                data-confirm-title="Delete courier?"
+                data-confirm-text="{{name}} will be removed permanently."
+                data-confirm-action="/couriers/{{id}}/delete"
+                data-confirm-button="Delete">
+                <svg class="icon"><use href="#i-trash"/></svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+        {{else}}
+        <tr><td class="table__empty" colspan="6">No couriers found.</td></tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  {{> pager}}
+</section>
+
+{{> person-dialog editTitle="Edit courier" addTitle="Add courier"}}

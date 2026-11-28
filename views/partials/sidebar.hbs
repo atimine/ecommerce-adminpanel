@@ -20,7 +20,7 @@
 	</div>
 
 	<nav class='nav'>
-		<a class='nav__link' href='/' data-match='/'>
+		<a class='nav__link' href='/overview' data-match='/'>
 			<svg class='icon'><use href='#i-grid' /></svg><span>Overview</span>
 		</a>
 
@@ -73,8 +73,10 @@
 	</nav>
 
 	<div class='sidebar__foot'>
-		<a class='nav__link nav__link--logout' href='/logout'>
-			<svg class='icon'><use href='#i-logout' /></svg><span>Log Out</span>
-		</a>
+		<form action='/auth/logout' method='post'>
+			<button type='submit' class='nav__link nav__link--logout'>
+				<svg class='icon'><use href='#i-logout' /></svg><span>Log Out</span>
+			</button>
+		</form>
 	</div>
 </aside>
